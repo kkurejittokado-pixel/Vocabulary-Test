@@ -29,7 +29,7 @@ export default function QuizApp() {
     setLoading(true);
     try {
       const model = genAI.getGenerativeModel({ 
-        model: "gemini-2.5-flash", // 安定版
+        model: "google/gemini-2.5-flash", // 安定版
         generationConfig: { responseMimeType: "application/json" }
       });
 
