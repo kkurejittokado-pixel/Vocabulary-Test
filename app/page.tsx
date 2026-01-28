@@ -10,7 +10,8 @@ export default function QuizApp() {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [message, setMessage] = useState("");
 
-  const genAI = new GoogleGenerativeAI("AIzaSyBTuWOJLe6y7k0e_lcnTVXTEov5MSA5ohM");
+  // 修正後
+  const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY as string);
 
   // 画像を読み込む処理
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +33,7 @@ export default function QuizApp() {
         generationConfig: { responseMimeType: "application/json" }
       });
 
-      const prompt = "この画像から特徴的なものを探し、英単語クイズを10問作成してください。以下のJSON配列形式で返してください: [{\"word\": \"English\", \"meaning\": \"日本語の意味\", \"choices\": [\"A\", \"B\", \"C\", \"D\"], \"answer\": \"English\"}]";
+      const prompt = "この画像から特徴的なものを探し、英単語クイズを3問作成してください。以下のJSON配列形式で返してください: [{\"word\": \"English\", \"meaning\": \"日本語の意味\", \"choices\": [\"A\", \"B\", \"C\", \"D\"], \"answer\": \"English\"}]";
       const imagePart = { inlineData: { data: image.split(',')[1], mimeType: "image/jpeg" } };
 
       const result = await model.generateContent([prompt, imagePart]);
